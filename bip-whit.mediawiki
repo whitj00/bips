@@ -1,0 +1,67 @@
+<pre>
+  BIP: XXX
+  Title: Buzzword based blockchain consensus retargeting algorithm
+  Author: Whit Jackson <whit@whitjack.me>
+  Status: Draft
+  Type: Standards Track
+  Created: 2015-10-02
+</pre>
+
+==Abstract==
+
+This BIP proposes replacing the current static blocksize with a 2-part blocksize algorithm to decide on the blocksize balancing power between the miners and users.  I propose an easy to implement solution for reaching consensus based on a number of factors (or variables as you programmy types like to call it).
+
+Transaction volume and buzzword usage have been growing in a heavily correlated way for the past 6 years.  If we were to base the blocksize on the usage of buzzwords, we could grow the blocksize at a reasonable rate to scale with demand.
+
+==Specification==
+
+After deployment (see the Deployment section for details), the maximum allowed size of a block on the main network shall be calculated based on a 2 part system.
+
+Miners will place a buzzword inside their coinbase where pools often place their signatures and such.
+
+Each buzzword will represent a percent change they would like to see.
+
+Psuedocode to determine what percent to use:
+<pre>
+def get_sentiment(coinbase):
+  buzzword = decode(coinbase)
+  buzz_json = {"zerofees":10,"dirtyfiat":5,"privateblockchain":2.5,"instanttransactions":1.5,"micropayments":1.25,"frictionless":1.1,"antifragile":1,"settlementlayer":0.75,"paymentchannels":0.5}
+  for key in buzzword_json.keys():
+    if key == buzzword:
+      voteword = buzzword
+      voteamount = buzz_json['voteword']
+  if not voteamount:
+    voteamount = 1
+	return voteamount
+</pre>
+Ten blocks after the last block size change, we determine how many more blocks before the next blocksize calculation.
+
+For example, if the past 10 responses since retargeting were privateblockchain, the length of responses would be 170, which you divide by 10 and get 17, which means we will retarget in 17 blocks (27 since last retarget), round up if it's not a whole number.
+
+Psuedocode:
+<pre>
+def determine_blocks_till_retarget(past_ten_buzzwords):
+  for buzzword in past_ten_buzzwords:
+    buzzlength += past_ten_buzzwords.len()
+  blocks_till = math.ceil(buzzlength/10)
+  return blockstill
+</pre>
+
+To determine the bock size increase/decrease, we simply take every vote since the last retarget, and average them.
+
+Psuedocode:
+
+<pre>
+function determine_retarget_amount(bzz_since_lst_retarget):
+  numvotezz = 0
+  for bzzblockzz in bzz_since_lst_retarget:
+    votezz += get_sentiment(bzzblockzz)
+    numvotezz++
+  console.log("bees!")
+  retarget_amount = votezz/numvotezz
+  return retarget
+</pre>
+
+==Compatibility==
+
+This is a hard-forking change to the Bitcoin protocol; meaning that the fork is above an 8 (topaz) on the mohs hardness scale.  Some miners will have to upgrade to a better pickaxe (diamond reccomended).
